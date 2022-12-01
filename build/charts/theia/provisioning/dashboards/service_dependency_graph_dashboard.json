@@ -1,0 +1,220 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "iteration": 1669268194538,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 13,
+        "w": 14,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "seriesCountSize": "sm",
+        "showSeriesCount": false,
+        "text": "Default value of text input option"
+      },
+      "targets": [
+        {
+          "builderOptions": {
+            "database": "",
+            "fields": [
+              "sourcePodName",
+              "sourcePodLabel",
+              "sourceNodeName",
+              "destinationPodName",
+              "destinationPodLabel",
+              "destinationNodeName",
+              "destinationServicePortName",
+              "octetDeltaCount"
+            ],
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "key": "destinationPodName",
+                "operator": "IS NOT NULL",
+                "type": "",
+                "value": []
+              },
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "key": "sourcePodName",
+                "operator": "IN",
+                "type": "string",
+                "value": [
+                  "${queryPodName:raw}"
+                ]
+              }
+            ],
+            "mode": "list",
+            "table": "flows"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "9JmyLZOVk"
+          },
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "fields": [
+                "sourcePodName",
+                "sourcePodLabel",
+                "sourceNodeName",
+                "destinationPodName",
+                "destinationPodLabel",
+                "destinationNodeName",
+                "destinationServicePortName",
+                "octetDeltaCount"
+              ],
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "key": "destinationPodName",
+                  "operator": "IS NOT NULL",
+                  "type": "",
+                  "value": []
+                },
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "key": "sourcePodName",
+                  "operator": "IN",
+                  "type": "string",
+                  "value": [
+                    "${queryPodName:raw}"
+                  ]
+                }
+              ],
+              "mode": "list",
+              "table": "flows"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT sourcePodName, sourcePodLabel, sourceNodeName, destinationPodName, destinationPodLabel, destinationNodeName, destinationServicePortName, octetDeltaCount FROM flows\nWHERE   ( destinationPodName IS NOT NULL )\nAND ( positionCaseInsensitiveUTF8('${querySourcePodNamespace:raw}', sourcePodNamespace) > 0 )\nAND ( positionCaseInsensitiveUTF8('${queryDestinationPodNamespace:raw}', destinationPodNamespace) > 0 )\nAND ( positionCaseInsensitiveUTF8('${queryFlowType:raw}', CAST(flowType AS varchar)) > 0 )",
+          "refId": "A"
+        }
+      ],
+      "title": "Service Dependency Graph",
+      "type": "theia-grafana-dependency-plugin"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 34,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "default0",
+            "default1"
+          ],
+          "value": [
+            "default0",
+            "default1"
+          ]
+        },
+        "definition": "SELECT sourcePodNamespace FROM flows",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Source Pod Namespace",
+        "multi": true,
+        "name": "querySourcePodNamespace",
+        "options": [],
+        "query": "SELECT sourcePodNamespace FROM flows",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "kube-system",
+            "kube-system2"
+          ],
+          "value": [
+            "kube-system",
+            "kube-system2"
+          ]
+        },
+        "definition": "SELECT destinationPodNamespace FROM flows",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Destination Pod Namespace",
+        "multi": true,
+        "name": "queryDestinationPodNamespace",
+        "options": [],
+        "query": "SELECT destinationPodNamespace FROM flows",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "definition": "SELECT flowType FROM flows",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Flow Type",
+        "multi": true,
+        "name": "queryFlowType",
+        "options": [],
+        "query": "SELECT flowType FROM flows",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "service_dependency_graph",
+  "uid": "yRVDEad4k",
+  "version": 11,
+  "weekStart": ""
+}

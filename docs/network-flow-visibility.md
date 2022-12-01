@@ -29,6 +29,7 @@
     - [Pod-to-Service Flows Dashboard](#pod-to-service-flows-dashboard)
     - [Node-to-Node Flows Dashboard](#node-to-node-flows-dashboard)
     - [Network-Policy Flows Dashboard](#network-policy-flows-dashboard)
+    - [Service Dependency Graph Dashboard](#service-dependency-graph-dashboard)
   - [Dashboard Customization](#dashboard-customization)
 <!-- /toc -->
 
@@ -749,6 +750,21 @@ Mouse over or click on source/destination highlights only the related traffic.
 Mouse out or click on the background will bring all the traffic back.
 
 <img src="https://downloads.antrea.io/static/08032022/flow-visibility-np-3.png" width="900" alt="Network-Policy Flows Dashboard">
+
+#### Service Dependency Graph Dashboard
+
+Grafana Service Dependency Graph Plugin allows users to visualize how pods send
+and receive traffic to and from other pods and services. To help visualize the
+flows, the plugin groups pods by pod label and shows them 'inside' the node they
+are a part of. A line pointing from source to destination is also shown, with
+the amount of data transmitted labelling the line.
+
+<img src="https://lh3.googleusercontent.com/IKTmxqMwPvwwLnpOrlX1HRXrAvdkCrgSITXZM8ePErlMdaBwUA4rwUep3R-WH-jxOo-cvFM_eB62kVxeiJKzz5pqimsEmDPt4Mrz35vbVeEqQmH4aQ27oXyicJwT5BA1-tTWMa_Xy9aiU5uRCngfqkzjj5tWcrBUTPcvmLU7xoVUaELfsdiYqgcYx1kpefO5-blb6muzxPvQPGtEBbUT7gRgcbBiikKDc1mRY5g6L2EAmT1BT0awuN2kJSbjzMoZ01FEV-P0i_PmFERIqxStFC1qeyv1ciD46VGYZ_356fK0RcBlbfxGPk75LcGR_dke_wSFJYb3UN6KunrpWcOMcIk6Cq9QcNMKIJAA_HsO46nW2IaYu3b1IFs7wri8fINM-7FGEC5OUP4r6xM822BTn84W8XsdwsX_Svn39bJxmliUJlVCkkCp02kGEW-sSj5vX8OU0pQFdD75-kt0a7bTcD_jpG6b_61ol5qrOnveyGX0tRAZkjCPfTaxWmFZgYl2ROqdAPnahWOYqw9z8j4lw0Z58QExGqxUgoyE7LpppRSCSlhDqwlodentDBQ-eB8JXaGM9dmTTxnyvpuP7M7m2q6Cts024eyCkPbCqySNqssXBU4bmS0GNfVzf9trqdCBuN7JvXQanKe7zMMJY-ytO1-oCnuhm0cS6cPNuj-_PizeBrX_9i-Ic4WBgHbS2kpybaaWIx2uzplWNenYsWX9ymk0Ec_4qSPvUnzeO7iWSiWaBgrrIW5IG-1d-d9k6G3qbX7WsX0HGEix7JDSRbKJMjqqTRYh-7H9j-R8fmGyUNjdxMRP_odGK1Pt_jzRgKW9VD3OzJIyUbD_OC1Z-cg2kNfFuKuK-ytWUg8Vy18LePpeS65S4p_Z0zjIUWkiy7DnPrFfU5tocYAUvySUB45lMUfc--rDsDBmAGhzzEJ5U59HlQ=w1357-h942-no?authuser=0" width="900" alt="Service Dependency Graph Dashboard">
+
+Users can filter graph results based on the number of flow records, as well as
+the source and destination pod names.
+
+<img src="https://lh3.googleusercontent.com/UToh7soA0qm9TKwRhg8apsc1jAWyW7IEfFw-SWADBaMMe0ZZvY6gvMZZQr2oK1y1yPTY2iA5rZWn1iU3v2RPnTgu3tsqnAxRhAh3k8pCImNXVsrWSqmTgJwDOXC91ztpGXzwNRYcH9cLxNeOFIK_faucPHxNZxqs9Jgg-dYyLY1FcAsFCUv_-SQ9cooeBGgi5Uy1ofSL7ZpXCJODkMpLEWeNQ90iE93FpNgO8riF2JoZgqh0HsnToG1BNNEiSF4fcELPJ9r20YEt9vV3rIF8X7TzYBbT8ZU7Qn48QDf11duuktNPsvp9lwG-_FppablJXuvc-S7sHoD6SlHeolhGjkplY4zVkEM_IY1SStY_54Nz6teOpaH9LiBnsF5Y5fvO3urcxApzthBGuNLNH-bYfvwgjxTtg-VlPqYTVtU-ZvXoDscFh9PfGjo3jhjhhVoO3CV9EucJp4eSZ9X-vb-ajth5GTP7B5ul4qUPmFl_EXQ8zJO_poy9yCBhnVvXHOkFRrtqr9CkKhM3s4Ci86QUMitM5duQfx-atW7vLi3uy38PIxZ3AzlqIIPRSERgB2Sj4Dhtz4dash1ard9tmFDm_Lhsru5RjyjZVS22P-ZOPzOZX8Vxb-sXNkHDS90uc0c6QLLHv4ynFutdYX9XYPm8jyU4dpNUUFeza46GymW5D-IGWcgxKYY9X_F9rDJEoArAUUBdc6JVKtgZUNmqIkQ97BtgDa1YvjWnJM1VvGjkAAs1cXs5D7VLe4IMUmr0OCKKuPIxogou3enAeyOXDkR9PS0lwmF3SX3Ucjsqd9gkTIt7F5lOndkKAewMkklmuKwBigff0rwuhlk_TbYKg8xHqFZeQoCZut64F0KIysbZKGwkkRCZIxhVoNMJCSrpoS5hj85bbgzAQkE9yGxCF-aaPXmT9PXtr2vb5meJmp-W9fermA=w1332-h373-no?authuser=0" width="900" alt="Service Dependency Graph Dashboard">
 
 ### Dashboard Customization
 
