@@ -7010,7 +7010,6 @@ spec:
         - mountPath: /theia-manager-coverage
           name: theia-manager-coverage
       nodeSelector:
-        kubernetes.io/arch: amd64
         kubernetes.io/os: linux
       serviceAccountName: theia-manager
       volumes:
