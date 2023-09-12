@@ -81,7 +81,8 @@ export const VisibilityPanel: React.FC<Props> = ({ options, data, width, height 
   let graphElement = document.getElementsByClassName("graphDiv")[0];
   // null check because the div does not exist at this point during the first run
   if (graphElement != null) {
-    mermaid.mermaidAPI.render('graphDiv', graphString, graphElement);
+    // mermaid.mermaidAPI.render('graphDiv', graphString, graphElement);
+    mermaid.render('graphDiv', graphString, graphElement);
   }
 
   // manually display first time, since render has no target yet
