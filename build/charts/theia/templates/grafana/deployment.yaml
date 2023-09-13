@@ -75,6 +75,14 @@ spec:
               value: '{{ .Values.grafana.log.daily_rotate }}'
             - name: GF_LOG_FILE_MAX_DAYS
               value: '{{ .Values.grafana.log.max_days }}'
+            - name: GF_SMTP_ENABLED
+              value: '{{ .Values.grafana.smtp.enabled }}'
+            - name: GF_SMTP_HOST
+              value: '{{ .Values.grafana.smtp.host }}'
+            - name: GF_SMTP_USER
+              value: '{{ .Values.grafana.smtp.user }}'
+            - name: GF_SMTP_PASSWORD
+              value: '{{ .Values.grafana.smtp.password }}'
           ports:
             - containerPort: 3000
               name: http-grafana

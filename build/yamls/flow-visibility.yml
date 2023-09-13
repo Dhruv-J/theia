@@ -1200,6 +1200,88 @@ metadata:
 ---
 apiVersion: v1
 data:
+  application_layer_visibility_dashboard.json: |-
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": 9,
+      "links": [],
+      "liveNow": false,
+      "panels": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 0
+          },
+          "id": 2,
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+              },
+              "format": 1,
+              "meta": {
+                "builderOptions": {
+                  "fields": [],
+                  "limit": 100,
+                  "mode": "list"
+                }
+              },
+              "queryType": "sql",
+              "rawSql": "SELECT sourceTransportPort, destinationTransportPort, sourceIP, destinationIP, httpVals\nFROM flows\nWHERE httpVals!=''",
+              "refId": "A"
+            }
+          ],
+          "title": "Application Level Visibility",
+          "type": "theia-grafana-application-visibility-plugin"
+        }
+      ],
+      "refresh": "",
+      "schemaVersion": 34,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": []
+      },
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "application_visibility_dashboard",
+      "uid": "m1homHiIk",
+      "version": 2,
+      "weekStart": ""
+    }
   flow_records_dashboard.json: |-
     {
       "annotations": {
@@ -6833,7 +6915,7 @@ spec:
       containers:
       - env:
         - name: GF_INSTALL_PLUGINS
-          value: https://github.com/Dhruv-J/grafana-application-visibility-plugin/archive/refs/tags/v2.zip;theia-grafana-application-visibility-plugin,https://downloads.antrea.io/artifacts/grafana-custom-plugins/theia-grafana-sankey-plugin-1.0.2.zip;theia-grafana-sankey-plugin,https://downloads.antrea.io/artifacts/grafana-custom-plugins/theia-grafana-chord-plugin-1.0.1.zip;theia-grafana-chord-plugin,https://downloads.antrea.io/artifacts/grafana-custom-plugins/theia-grafana-dependency-plugin-1.0.2.zip;theia-grafana-dependency-plugin,grafana-clickhouse-datasource
+          value: https://github.com/Dhruv-J/grafana-application-visibility-plugin/archive/refs/tags/v2.zip;theia-grafana-application-visibility-plugin,https://downloads.antrea.io/artifacts/grafana-custom-plugins/theia-grafana-sankey-plugin-1.0.2.zip;theia-grafana-sankey-plugin,https://downloads.antrea.io/artifacts/grafana-custom-plugins/theia-grafana-chord-plugin-1.0.1.zip;theia-grafana-chord-plugin,https://downloads.antrea.io/artifacts/grafana-custom-plugins/theia-grafana-dependency-plugin-1.0.2.zip;theia-grafana-dependency-plugin
             1.0.1
         - name: CLICKHOUSE_USERNAME
           valueFrom:
@@ -6875,6 +6957,14 @@ spec:
           value: "true"
         - name: GF_LOG_FILE_MAX_DAYS
           value: "7"
+        - name: GF_SMTP_ENABLED
+          value: "true"
+        - name: GF_SMTP_HOST
+          value: smtp.example.com
+        - name: GF_SMTP_USER
+          value: myuser
+        - name: GF_SMTP_PASSWORD
+          value: mysecret
         image: projects.registry.vmware.com/antrea/theia-grafana:8.3.3
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -7009,8 +7099,6 @@ spec:
           name: host-var-log-antrea-theia-manager
         - mountPath: /theia-manager-coverage
           name: theia-manager-coverage
-      nodeSelector:
-        kubernetes.io/os: linux
       serviceAccountName: theia-manager
       volumes:
       - configMap:
